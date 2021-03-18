@@ -8,6 +8,7 @@ public class ProductSpecification {
 	List<UnitsOfMeasure> unitsOfMeasure = new ArrayList<>();
 	List<ProductOfferingRef> productOfferings = new ArrayList<>();
 	List<ProductSpecCharacteristic> productSpecCharacteristics = new ArrayList<>();
+	List<BarCode> availableBarcodes = new ArrayList<>();
 
 	public ProductSpecification() {
 		super();
@@ -100,6 +101,14 @@ public class ProductSpecification {
 
 	public void setProductSpecCharacteristics(List<ProductSpecCharacteristic> productSpecCharacteristics) {
 		this.productSpecCharacteristics = productSpecCharacteristics;
+	}
+
+	public List<BarCode> getAvailableBarcodes() {
+		return availableBarcodes;
+	}
+
+	public void setAvailableBarcodes(List<BarCode> availableBarcodes) {
+		this.availableBarcodes = availableBarcodes;
 	}
 
 	@Override

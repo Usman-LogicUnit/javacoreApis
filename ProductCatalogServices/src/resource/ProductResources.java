@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import dao.CreateProductDao;
+import model.BarCode;
 import model.CreateProductReturnModel;
 import model.DataObject;
 import model.ProductObject;
@@ -46,5 +47,17 @@ public class ProductResources {
 	@Path("/name/{name}")
 	public List<ProductSpecification> SearchByName(@PathParam("name") String name) {
 		return createproductdao.searchByName(name);
+	}
+	
+	@GET
+	@Path("/{productId}/barCodes")
+	public List<BarCode> GetAllBarCodes(@PathParam("productId") String productId){
+		return createproductdao.getAllBarCodes(productId);
+	}
+	
+	@GET
+	@Path("/{productId}/barCode/{barcodeId}")
+	public BarCode GetAllBarCodeById(@PathParam("productId") String productId,@PathParam("barcodeId") String barcodeId){
+		return createproductdao.getBarCodeById(productId,barcodeId);
 	}
 }

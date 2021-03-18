@@ -16,6 +16,7 @@ public class DataObject {
 			productOfferingPriceTaxRate, productOfferingPricePercentage;
 	@XmlElement(name = "Category_Id")
 	String Category_Id;
+	List<BarCode> barCodes;
 
 	// optoions and attributes....
 
@@ -178,4 +179,13 @@ public class DataObject {
 		Category_Id = category_Id;
 	}
 
+	public List<BarCode> getBarCodes() {
+		return barCodes;
+	}
+
+	public void setBarCodes(List<BarCode> barCodes) {
+		this.barCodes = barCodes;
+	}
+
+	
 }

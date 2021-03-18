@@ -17,6 +17,7 @@ import org.glassfish.jersey.client.ClientConfig;
 
 import com.google.common.collect.Lists;
 
+import model.BarCode;
 import model.CreateProductReturnModel;
 import model.DataObject;
 import model.ProductObject;
@@ -104,6 +105,7 @@ public class CreateProductDao {
 		productSpecification.setProductNumber(dataObject.getProductNumber());
 		productSpecification.setUnitsOfMeasure(dataObject.getUnitsOfMeasure());
 		productSpecification.setProductSpecCharacteristics(dataObject.getProductSpecCharacteristics());
+		productSpecification.setAvailableBarcodes(dataObject.getBarCodes());
 		productOffering.setName(dataObject.getOfferingName());
 		productOffering.setDescription(dataObject.getOfferingDescription());
 		productOffering.setValidFor(new TimePeriod());
@@ -227,8 +229,8 @@ public class CreateProductDao {
 						.header(HttpHeaders.AUTHORIZATION, "Bearer usman");
 				Response productOfferingResponse = productOfferingBuilder
 						.post(Entity.entity(productOffering, MediaType.APPLICATION_JSON));
-				ProductOffering productOfferingObject = new ProductOffering();
-				productOfferingObject = productOfferingResponse.readEntity(ProductOffering.class);
+//				ProductOffering productOfferingObject = new ProductOffering();
+//				productOfferingObject = productOfferingResponse.readEntity(ProductOffering.class);
 				// productOffering.setId(productOfferingObject.getId());
 			}
 
@@ -277,16 +279,46 @@ public class CreateProductDao {
 		List<ProductSpecification> productSpecifications = response
 				.readEntity(new GenericType<List<ProductSpecification>>() {
 				});
-		System.out.println("name by search"+name);
-		List<ProductSpecification> productSpecificationsByName=new ArrayList<>();
-		for(ProductSpecification productSpecification:productSpecifications)
-		{		
-			if(name.equals(productSpecification.getName()))
-			{
-				System.out.println("Product found in record"+productSpecification.getName());
+		System.out.println("name by search" + name);
+		List<ProductSpecification> productSpecificationsByName = new ArrayList<>();
+		for (ProductSpecification productSpecification : productSpecifications) {
+			if (name.equals(productSpecification.getName())) {
+				System.out.println("Product found in record" + productSpecification.getName());
 				productSpecificationsByName.add(productSpecification);
 			}
 		}
 		return productSpecificationsByName;
+	}
+
+	public List<BarCode> getAllBarCodes(String productId) {
+		WebTarget webTarget = client.target(
+				"http://localhost:8083/Apps/PMS/HULM/7b64206f-1435-438a-8b1c-42aee9d0cec3/ProductCatalogService")
+				.path("/productSpecification").path(productId).path("/barCodes");
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON)
+				.header(HttpHeaders.AUTHORIZATION, "Bearer usman");
+		Response response = invocationBuilder.get();
+		List<BarCode> barCodes = response.readEntity(new GenericType<List<BarCode>>() {
+		});
+		return barCodes;
+	}
+
+	public BarCode getBarCodeById(String productId, String barcodeId) {
+		BarCode barcode = new BarCode();
+		WebTarget webTarget = client.target(
+				"http://localhost:8083/Apps/PMS/HULM/7b64206f-1435-438a-8b1c-42aee9d0cec3/ProductCatalogService")
+				.path("/productSpecification").path(productId).path("/barCodes");
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON)
+				.header(HttpHeaders.AUTHORIZATION, "Bearer usman");
+		Response response = invocationBuilder.get();
+		List<BarCode> barCodes = response.readEntity(new GenericType<List<BarCode>>() {
+		});
+		for (BarCode barcodes : barCodes) {
+			if (barcodeId.equals(barcodes.getPOID())) {
+				System.out.println("BarCode" + barcodeId + "Exist in Product ID" + productId);
+
+				barcode = barcodes;
+			}
+		}
+		return barcode;
 	}
 }
