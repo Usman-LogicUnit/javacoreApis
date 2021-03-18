@@ -2,8 +2,12 @@ package model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class Category {
-	String id, parentId, name, description, Catalog_Id;
+	String id, parentId, name, description;
+	@XmlElement(name = "Catalog_Id")
+	String Catalog_Id;
 	List<ProductOfferingRef> productOfferings;
 
 	public Category() {
@@ -43,10 +47,12 @@ public class Category {
 		this.description = description;
 	}
 
+	@XmlElement(name = "Catalog_Id")
 	public String getCatalog_Id() {
 		return Catalog_Id;
 	}
 
+	@XmlElement(name = "Catalog_Id")
 	public void setCatalog_Id(String catalog_Id) {
 		Catalog_Id = catalog_Id;
 	}

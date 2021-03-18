@@ -41,7 +41,7 @@ public class CategoryDao {
 	}
 
 	public List<Category> getCategories(String categoryId) {
-		WebTarget webTarget = client.target("").path("category").path(categoryId);
+		WebTarget webTarget = client.target("http://localhost:8083/Apps/PMS/HULM/7b64206f-1435-438a-8b1c-42aee9d0cec3/ProductCatalogService").path("category").path(categoryId);
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON)
 				.header(HttpHeaders.AUTHORIZATION, "Bearer usman");
 		Response response = invocationBuilder.get();

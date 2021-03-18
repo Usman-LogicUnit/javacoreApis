@@ -14,6 +14,7 @@ import dao.CreateProductDao;
 import model.CreateProductReturnModel;
 import model.DataObject;
 import model.ProductObject;
+import model.ProductSpecification;
 import model.UnitsOfMeasure;
 
 @Path("/Products")
@@ -39,5 +40,11 @@ public class ProductResources {
 	@Path("/{productId}/unitOfMeasures")
 	public List<UnitsOfMeasure> getAllUnitOfMeasures(@PathParam("productId") String productId){
 		return  createproductdao.getUnitOfMeasuresOfProduct(productId);
+	}
+	
+	@GET
+	@Path("/name/{name}")
+	public List<ProductSpecification> SearchByName(@PathParam("name") String name) {
+		return createproductdao.searchByName(name);
 	}
 }

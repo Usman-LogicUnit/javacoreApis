@@ -229,7 +229,7 @@ public class CreateProductDao {
 						.post(Entity.entity(productOffering, MediaType.APPLICATION_JSON));
 				ProductOffering productOfferingObject = new ProductOffering();
 				productOfferingObject = productOfferingResponse.readEntity(ProductOffering.class);
-				productOffering.setId(productOfferingObject.getId());
+				// productOffering.setId(productOfferingObject.getId());
 			}
 
 		} else {
@@ -264,5 +264,29 @@ public class CreateProductDao {
 				});
 
 		return productSpecifications.get(0).getUnitsOfMeasure();
+	}
+
+	public List<ProductSpecification> searchByName(String name) {
+
+		WebTarget webTarget = client.target(
+				"http://localhost:8083/Apps/PMS/HULM/7b64206f-1435-438a-8b1c-42aee9d0cec3/ProductCatalogService")
+				.path("/productSpecifications");
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON)
+				.header(HttpHeaders.AUTHORIZATION, "Bearer usman");
+		Response response = invocationBuilder.get();
+		List<ProductSpecification> productSpecifications = response
+				.readEntity(new GenericType<List<ProductSpecification>>() {
+				});
+		System.out.println("name by search"+name);
+		List<ProductSpecification> productSpecificationsByName=new ArrayList<>();
+		for(ProductSpecification productSpecification:productSpecifications)
+		{		
+			if(name.equals(productSpecification.getName()))
+			{
+				System.out.println("Product found in record"+productSpecification.getName());
+				productSpecificationsByName.add(productSpecification);
+			}
+		}
+		return productSpecificationsByName;
 	}
 }
