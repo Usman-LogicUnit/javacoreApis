@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class DataObject {
 	String productDescription, productIsBundle, productName, productNumber;
 	List<UnitsOfMeasure> unitsOfMeasure;
@@ -12,8 +14,10 @@ public class DataObject {
 	String productOfferingPriceName, productOfferingPriceDescription, productOfferingPriceType;
 	float productOfferingPriceTaxIncludedAmountValue, productOfferingPriceDutyFreeAmountValue,
 			productOfferingPriceTaxRate, productOfferingPricePercentage;
-	
-	//optoions and attributes....
+	@XmlElement(name = "Category_Id")
+	String Category_Id;
+
+	// optoions and attributes....
 
 	public DataObject() {
 		super();
@@ -162,6 +166,16 @@ public class DataObject {
 
 	public void setProductOfferingPricePercentage(float productOfferingPricePercentage) {
 		this.productOfferingPricePercentage = productOfferingPricePercentage;
+	}
+
+	@XmlElement(name = "Category_Id")
+	public String getCategory_Id() {
+		return Category_Id;
+	}
+
+	@XmlElement(name = "Category_Id")
+	public void setCategory_Id(String category_Id) {
+		Category_Id = category_Id;
 	}
 
 }

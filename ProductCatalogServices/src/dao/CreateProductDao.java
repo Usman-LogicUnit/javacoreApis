@@ -124,6 +124,7 @@ public class CreateProductDao {
 		productOfferingPrice.setTaxRate(dataObject.getProductOfferingPriceTaxRate());
 		productOfferingPrice.setPercentage(dataObject.getProductOfferingPricePercentage());
 		productOffering.getProductOfferingPrices().add(productOfferingPrice);
+		productOffering.setCategory_Id(dataObject.getCategory_Id());
 
 		// System.out.println("test" + productOffering.toString());
 
