@@ -29,6 +29,7 @@ import model.ProductSpecCharacteristic;
 import model.ProductSpecCharacteristicRef;
 import model.ProductSpecification;
 import model.ProductSpecificationRef;
+import model.Quantity;
 import model.TimePeriod;
 import model.UnitsOfMeasure;
 
@@ -118,15 +119,17 @@ public class CreateProductDao {
 		productSpecificationRef.setConversionFactor(dataObject.getConversionFactor());
 		productOffering.getProductSpecifications().add(productSpecificationRef);
 		productOffering.setProductOfferingPrices(new ArrayList<ProductOfferingPrice>());
-		productOfferingPrice.setDescription(dataObject.getProductOfferingPriceDescription());
-		productOfferingPrice.setName(dataObject.getProductOfferingPriceName());
-		productOfferingPrice.setPriceType(dataObject.getProductOfferingPriceType());
-		productOfferingPrice.setDutyFreeAmountValue(dataObject.getProductOfferingPriceDutyFreeAmountValue());
-		productOfferingPrice.setTaxIncludedAmountValue(dataObject.getProductOfferingPriceTaxIncludedAmountValue());
-		productOfferingPrice.setTaxRate(dataObject.getProductOfferingPriceTaxRate());
-		productOfferingPrice.setPercentage(dataObject.getProductOfferingPricePercentage());
-		productOffering.getProductOfferingPrices().add(productOfferingPrice);
+//		productOfferingPrice.setDescription(dataObject.getProductOfferingPriceDescription());
+//		productOfferingPrice.setName(dataObject.getProductOfferingPriceName());
+//		productOfferingPrice.setPriceType(dataObject.getProductOfferingPriceType());
+//		productOfferingPrice.setDutyFreeAmountValue(dataObject.getProductOfferingPriceDutyFreeAmountValue());
+//		productOfferingPrice.setTaxIncludedAmountValue(dataObject.getProductOfferingPriceTaxIncludedAmountValue());
+//		productOfferingPrice.setTaxRate(dataObject.getProductOfferingPriceTaxRate());
+//		productOfferingPrice.setPercentage(dataObject.getProductOfferingPricePercentage());
+//		productOffering.getProductOfferingPrices().add(productOfferingPrice);
 		productOffering.setCategory_Id(dataObject.getCategory_Id());
+		
+		//
 
 		// System.out.println("test" + productOffering.toString());
 
@@ -142,6 +145,8 @@ public class CreateProductDao {
 		responseProduct = response.readEntity(ProductSpecification.class);
 		productOffering.getProductSpecifications().get(0).setId(responseProduct.getId());
 		productOffering.getProductSpecifications().get(0).setProduct_Id(responseProduct.getId());
+		
+		
 
 		// Get the details of Created Product
 		WebTarget webTargetProductSpecification = client.target(
@@ -153,8 +158,34 @@ public class CreateProductDao {
 		List<ProductSpecification> productSpecifications = responseProductSpecification
 				.readEntity(new GenericType<List<ProductSpecification>>() {
 				});
-		// ProductSpecification createdProductDetails = new ProductSpecification();
 		productSpecification = productSpecifications.get(0);
+		
+		
+		
+		// Get default unit Of Measure
+				UnitsOfMeasure defaultUnitOfMeasure=new UnitsOfMeasure();
+				
+		for(UnitsOfMeasure unitOfMeasure:productSpecifications.get(0).getUnitsOfMeasure()) {
+			if(unitOfMeasure.isDefault()==true) {
+				System.out.println("one is default product"+unitOfMeasure.getPOID());
+				defaultUnitOfMeasure=unitOfMeasure;
+			}
+		}
+		Quantity quantity=new Quantity();
+		
+		//Setting default unit of Measure to Product Offering Prices
+		productOfferingPrice.setDescription(dataObject.getProductOfferingPriceDescription());
+		productOfferingPrice.setName(dataObject.getProductOfferingPriceName());
+		productOfferingPrice.setPriceType(dataObject.getProductOfferingPriceType());
+		productOfferingPrice.setDutyFreeAmountValue(dataObject.getProductOfferingPriceDutyFreeAmountValue());
+		productOfferingPrice.setTaxIncludedAmountValue(dataObject.getProductOfferingPriceTaxIncludedAmountValue());
+		productOfferingPrice.setTaxRate(dataObject.getProductOfferingPriceTaxRate());
+		productOfferingPrice.setPercentage(dataObject.getProductOfferingPricePercentage());
+		quantity.setNumber(defaultUnitOfMeasure.getConversionFactor());
+		quantity.setUnitOfMeasure_Id(defaultUnitOfMeasure.getPOID());
+		quantity.setUnitOfMeasureName(defaultUnitOfMeasure.getName());
+		productOfferingPrice.setUnitOfMeasure(quantity);
+		productOffering.getProductOfferingPrices().add(productOfferingPrice);
 
 		// Check for Product if it has some default Characteristics and value
 
@@ -264,9 +295,35 @@ public class CreateProductDao {
 		List<ProductSpecification> productSpecifications = response
 				.readEntity(new GenericType<List<ProductSpecification>>() {
 				});
-
 		return productSpecifications.get(0).getUnitsOfMeasure();
 	}
+	
+	
+	
+	public UnitsOfMeasure getDefaultUnitOfMeasure(String productId) {
+		WebTarget webTarget = client.target(
+				"http://localhost:8083/Apps/PMS/HULM/7b64206f-1435-438a-8b1c-42aee9d0cec3/ProductCatalogService")
+				.path("/productSpecification").path(productId);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON)
+				.header(HttpHeaders.AUTHORIZATION, "Bearer usman");
+		Response response = invocationBuilder.get();
+		List<ProductSpecification> productSpecifications  = response
+				.readEntity(new GenericType<List<ProductSpecification>>() {
+				});
+		UnitsOfMeasure defaultUnitOfMeasure=new UnitsOfMeasure();
+		for(UnitsOfMeasure unitOfMeasure:productSpecifications.get(0).getUnitsOfMeasure())
+		{
+			if(unitOfMeasure.isDefault()==true) {
+				System.out.println("one is default product"+unitOfMeasure.getPOID());
+				defaultUnitOfMeasure=unitOfMeasure;
+			}
+		}
+
+		return defaultUnitOfMeasure;
+	}
+	
+	
+	
 
 	public List<ProductSpecification> searchByName(String name) {
 

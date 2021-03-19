@@ -7,6 +7,7 @@ public class ProductOfferingPrice {
 	float taxIncludedAmountValue, dutyFreeAmountValue, taxRate, percentage;
 	@XmlElement(name = "ProductOffering_Id")
 	String ProductOffering_Id;
+	Quantity unitOfMeasure;
 
 	public ProductOfferingPrice() {
 		super();
@@ -91,6 +92,14 @@ public class ProductOfferingPrice {
 
 	public void setPercentage(float percentage) {
 		this.percentage = percentage;
+	}
+
+	public Quantity getUnitOfMeasure() {
+		return unitOfMeasure;
+	}
+
+	public void setUnitOfMeasure(Quantity unitOfMeasure) {
+		this.unitOfMeasure = unitOfMeasure;
 	}
 
 	@Override

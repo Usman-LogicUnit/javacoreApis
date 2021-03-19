@@ -27,20 +27,26 @@ public class ProductResources {
 	CreateProductDao createproductdao=new CreateProductDao();
 	
 	@POST
-	public CreateProductReturnModel newProduct(DataObject dataObject) {
+	public CreateProductReturnModel NewProduct(DataObject dataObject) {
 		return createproductdao.createProductWithOrWithoutVarients(dataObject);
 	}
 	
 	@GET
 	@Path("/{productId}")
-	public ProductObject getProductById(@PathParam("productId") String productId) {
+	public ProductObject GetProductById(@PathParam("productId") String productId) {
 		return createproductdao.getProduct(productId);
 	}
 	
 	@GET
 	@Path("/{productId}/unitOfMeasures")
-	public List<UnitsOfMeasure> getAllUnitOfMeasures(@PathParam("productId") String productId){
+	public List<UnitsOfMeasure> GetAllUnitOfMeasures(@PathParam("productId") String productId){
 		return  createproductdao.getUnitOfMeasuresOfProduct(productId);
+	}
+	
+	@GET
+	@Path("/{productId}/unitOfMeasure/default")
+	public UnitsOfMeasure GetDefaultUnitOfMeasure(@PathParam("productId") String productId) {
+		return createproductdao.getDefaultUnitOfMeasure(productId);
 	}
 	
 	@GET
