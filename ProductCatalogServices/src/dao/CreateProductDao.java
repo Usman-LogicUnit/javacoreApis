@@ -374,6 +374,7 @@ public class CreateProductDao {
 				System.out.println("BarCode" + barcodeId + "Exist in Product ID" + productId);
 
 				barcode = barcodes;
+				System.out.println("Hello World");
 			}
 		}
 		return barcode;
