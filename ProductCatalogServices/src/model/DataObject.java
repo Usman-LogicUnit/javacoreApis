@@ -5,56 +5,53 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 public class DataObject {
-	String productDescription, productIsBundle, productName, productNumber;
+	String description, isBundle, name, number;
 	List<UnitsOfMeasure> unitsOfMeasure;
 	List<ProductSpecCharacteristic> productSpecCharacteristics;
 	String offeringName, offeringDescription;
 	String offeringStartDate, offeringEndDate;
 	String conversionFactor;
-	String productOfferingPriceName, productOfferingPriceDescription, productOfferingPriceType;
-	float productOfferingPriceTaxIncludedAmountValue, productOfferingPriceDutyFreeAmountValue,
-			productOfferingPriceTaxRate, productOfferingPricePercentage;
+	String priceName, priceDescription, priceType;
+	float taxIncludedAmountValue, dutyFreeAmountValue, taxRate, percentage;
 	@XmlElement(name = "Category_Id")
 	String Category_Id;
 	List<BarCode> barCodes;
-
-	// optoions and attributes....
 
 	public DataObject() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getProductDescription() {
-		return productDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getProductIsBundle() {
-		return productIsBundle;
+	public String getIsBundle() {
+		return isBundle;
 	}
 
-	public void setProductIsBundle(String productIsBundle) {
-		this.productIsBundle = productIsBundle;
+	public void setIsBundle(String isBundle) {
+		this.isBundle = isBundle;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getName() {
+		return name;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getProductNumber() {
-		return productNumber;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setProductNumber(String productNumber) {
-		this.productNumber = productNumber;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
 	public List<UnitsOfMeasure> getUnitsOfMeasure() {
@@ -113,60 +110,60 @@ public class DataObject {
 		this.conversionFactor = conversionFactor;
 	}
 
-	public String getProductOfferingPriceName() {
-		return productOfferingPriceName;
+	public String getPriceName() {
+		return priceName;
 	}
 
-	public void setProductOfferingPriceName(String productOfferingPriceName) {
-		this.productOfferingPriceName = productOfferingPriceName;
+	public void setPriceName(String priceName) {
+		this.priceName = priceName;
 	}
 
-	public String getProductOfferingPriceDescription() {
-		return productOfferingPriceDescription;
+	public String getPriceDescription() {
+		return priceDescription;
 	}
 
-	public void setProductOfferingPriceDescription(String productOfferingPriceDescription) {
-		this.productOfferingPriceDescription = productOfferingPriceDescription;
+	public void setPriceDescription(String priceDescription) {
+		this.priceDescription = priceDescription;
 	}
 
-	public String getProductOfferingPriceType() {
-		return productOfferingPriceType;
+	public String getPriceType() {
+		return priceType;
 	}
 
-	public void setProductOfferingPriceType(String productOfferingPriceType) {
-		this.productOfferingPriceType = productOfferingPriceType;
+	public void setPriceType(String priceType) {
+		this.priceType = priceType;
 	}
 
-	public float getProductOfferingPriceTaxIncludedAmountValue() {
-		return productOfferingPriceTaxIncludedAmountValue;
+	public float getTaxIncludedAmountValue() {
+		return taxIncludedAmountValue;
 	}
 
-	public void setProductOfferingPriceTaxIncludedAmountValue(float productOfferingPriceTaxIncludedAmountValue) {
-		this.productOfferingPriceTaxIncludedAmountValue = productOfferingPriceTaxIncludedAmountValue;
+	public void setTaxIncludedAmountValue(float taxIncludedAmountValue) {
+		this.taxIncludedAmountValue = taxIncludedAmountValue;
 	}
 
-	public float getProductOfferingPriceDutyFreeAmountValue() {
-		return productOfferingPriceDutyFreeAmountValue;
+	public float getDutyFreeAmountValue() {
+		return dutyFreeAmountValue;
 	}
 
-	public void setProductOfferingPriceDutyFreeAmountValue(float productOfferingPriceDutyFreeAmountValue) {
-		this.productOfferingPriceDutyFreeAmountValue = productOfferingPriceDutyFreeAmountValue;
+	public void setDutyFreeAmountValue(float dutyFreeAmountValue) {
+		this.dutyFreeAmountValue = dutyFreeAmountValue;
 	}
 
-	public float getProductOfferingPriceTaxRate() {
-		return productOfferingPriceTaxRate;
+	public float getTaxRate() {
+		return taxRate;
 	}
 
-	public void setProductOfferingPriceTaxRate(float productOfferingPriceTaxRate) {
-		this.productOfferingPriceTaxRate = productOfferingPriceTaxRate;
+	public void setTaxRate(float taxRate) {
+		this.taxRate = taxRate;
 	}
 
-	public float getProductOfferingPricePercentage() {
-		return productOfferingPricePercentage;
+	public float getPercentage() {
+		return percentage;
 	}
 
-	public void setProductOfferingPricePercentage(float productOfferingPricePercentage) {
-		this.productOfferingPricePercentage = productOfferingPricePercentage;
+	public void setPercentage(float percentage) {
+		this.percentage = percentage;
 	}
 
 	@XmlElement(name = "Category_Id")
@@ -187,5 +184,4 @@ public class DataObject {
 		this.barCodes = barCodes;
 	}
 
-	
 }

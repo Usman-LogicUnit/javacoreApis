@@ -100,10 +100,10 @@ public class ProductDao {
 		/// Setting values form request Object Body for productSpecification and product
 		/// Offering
 		ProductOfferingPrice productOfferingPrice = new ProductOfferingPrice();
-		productSpecification.setName(dataObject.getProductName());
-		productSpecification.setDescription(dataObject.getProductDescription());
-		productSpecification.setIsBundle(dataObject.getProductIsBundle());
-		productSpecification.setProductNumber(dataObject.getProductNumber());
+		productSpecification.setName(dataObject.getName());
+		productSpecification.setDescription(dataObject.getDescription());
+		productSpecification.setIsBundle(dataObject.getIsBundle());
+		productSpecification.setProductNumber(dataObject.getNumber());
 		
 		productSpecification.setProductSpecCharacteristics(dataObject.getProductSpecCharacteristics());
 		productSpecification.setAvailableBarcodes(dataObject.getBarCodes());
@@ -191,13 +191,13 @@ public class ProductDao {
 		Quantity quantity=new Quantity();
 		
 		//Setting default unit of Measure to Product Offering Prices
-		productOfferingPrice.setDescription(dataObject.getProductOfferingPriceDescription());
-		productOfferingPrice.setName(dataObject.getProductOfferingPriceName());
-		productOfferingPrice.setPriceType(dataObject.getProductOfferingPriceType());
-		productOfferingPrice.setDutyFreeAmountValue(dataObject.getProductOfferingPriceDutyFreeAmountValue());
-		productOfferingPrice.setTaxIncludedAmountValue(dataObject.getProductOfferingPriceTaxIncludedAmountValue());
-		productOfferingPrice.setTaxRate(dataObject.getProductOfferingPriceTaxRate());
-		productOfferingPrice.setPercentage(dataObject.getProductOfferingPricePercentage());
+		productOfferingPrice.setDescription(dataObject.getPriceDescription());
+		productOfferingPrice.setName(dataObject.getPriceName());
+		productOfferingPrice.setPriceType(dataObject.getPriceType());
+		productOfferingPrice.setDutyFreeAmountValue(dataObject.getDutyFreeAmountValue());
+		productOfferingPrice.setTaxIncludedAmountValue(dataObject.getTaxIncludedAmountValue());
+		productOfferingPrice.setTaxRate(dataObject.getTaxRate());
+		productOfferingPrice.setPercentage(dataObject.getPercentage());
 		quantity.setNumber(defaultUnitOfMeasure.getConversionFactor());
 		quantity.setUnitOfMeasure_Id(defaultUnitOfMeasure.getPOID());
 		quantity.setUnitOfMeasureName(defaultUnitOfMeasure.getName());
@@ -413,8 +413,9 @@ public class ProductDao {
 			
 			for(BarCode barcode:productSpecification.getAvailableBarcodes() )
 			{
-				barcodeCode.equals(barcode.getCode());
+				if(barcodeCode.equals(barcode.getCode()))
 				searchbarcode=barcode;
+				break;
 			}
 		}
 		return searchbarcode;

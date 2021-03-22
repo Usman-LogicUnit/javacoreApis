@@ -63,7 +63,7 @@ public class ProductResources {
 	
 	@GET
 	@Path("/{productId}/barCode/{barcodeId}")
-	public BarCode GetAllBarCodeById(@PathParam("productId") String productId,@PathParam("barcodeId") String barcodeId){
+	public BarCode GetBarCodeById(@PathParam("productId") String productId,@PathParam("barcodeId") String barcodeId){
 		return productDao.getBarCodeById(productId,barcodeId);
 	}
 	
